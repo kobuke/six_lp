@@ -4,121 +4,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SiX - 6分間の聖域</title>
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&display=swap');
-        body { background-color: #09090b; margin: 0; color: #f4f4f5; }
+        body { background-color: #09090b; color: #f4f4f5; font-family: sans-serif; }
         .font-serif { font-family: 'Noto Serif JP', serif; }
-        /* アイコンが消えないための補正 */
-        svg { display: inline-block; vertical-align: middle; }
+        .selection-purple::selection { background: rgba(168, 85, 247, 0.3); color: #e9d5ff; }
     </style>
 </head>
-<body>
-    <div id="root"></div>
+<body class="selection-purple bg-zinc-950 text-zinc-100 overflow-x-hidden">
 
-    <script type="text/babel">
-        const { useState, useEffect } = React;
+    <nav class="fixed top-0 w-full z-50 bg-zinc-950/80 backdrop-blur-md border-b border-white/5">
+        <div class="max-w-md mx-auto px-6 h-16 flex items-center justify-between">
+            <span class="text-2xl font-serif font-bold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-300">SiX</span>
+            <span class="text-xs font-medium text-zinc-400">ログイン不要</span>
+        </div>
+    </nav>
 
-        // アイコンコンポーネントを確実に描画するためのラッパー
-        const Icon = ({ name, className }) => {
-            const [svg, setSvg] = React.useState('');
-            useEffect(() => {
-                // lucideが読み込まれるのを待ってアイコンを取得
-                if (window.lucide) {
-                    const icon = window.lucide.icons[name];
-                    if (icon) setSvg(icon.toSvg({ class: className }));
-                }
-            }, [name, className]);
-            return <span dangerouslySetInnerHTML={{ __html: svg }} />;
-        };
+    <header class="relative min-h-screen flex flex-col items-center justify-center px-6 text-center pt-16">
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-purple-900/20 rounded-full blur-3xl opacity-50"></div>
+            <div class="absolute bottom-1/3 right-1/4 w-96 h-96 bg-pink-900/10 rounded-full blur-3xl opacity-30"></div>
+        </div>
 
-        const SiXLP = () => {
-            const [isVisible, setIsVisible] = useState(false);
-            useEffect(() => { setIsVisible(true); }, []);
+        <div class="relative z-10">
+            <div class="mb-6 inline-block p-3 rounded-full bg-zinc-900/50 border border-white/10 backdrop-blur-sm">
+                <i data-lucide="ghost" class="w-8 h-8 text-purple-300"></i>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-serif font-medium leading-tight mb-6">
+                「いい人」を、<br />
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-300">6分間だけ</span>休もう。
+            </h1>
+            <p class="text-zinc-400 text-sm leading-relaxed max-w-sm mx-auto mb-10">
+                誰にも言えないことは、悪いことじゃない。それは、あなたが自分を守ってきた証拠だから。<br><br>
+                書き込んで、読み終えて、6分。あなたの秘密は、この世界のどこにも残らない。
+            </p>
+            <button class="px-8 py-4 bg-zinc-100 text-zinc-950 rounded-full font-bold shadow-[0_0_20px_rgba(168,85,247,0.3)] hover:scale-105 transition-transform">
+                秘密の部屋を作る
+            </button>
+            <p class="mt-4 text-[10px] text-zinc-600 tracking-wider uppercase">No Logs. No Names. Just 6 Minutes.</p>
+        </div>
+        <div class="absolute bottom-8 opacity-30"><i data-lucide="chevron-down" class="w-6 h-6"></i></div>
+    </header>
 
-            return (
-                <div className="min-h-screen bg-zinc-950 text-zinc-100 font-sans selection:bg-purple-500/30 selection:text-purple-200 overflow-x-hidden">
-                    {/* Navigation */}
-                    <nav className="fixed top-0 w-full z-50 bg-zinc-950/80 backdrop-blur-md border-b border-white/5">
-                        <div className="max-w-md mx-auto px-6 h-16 flex items-center justify-between">
-                            <span className="text-2xl font-serif font-bold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-300">SiX</span>
-                            <button className="text-xs font-medium text-zinc-400">ログイン不要</button>
-                        </div>
-                    </nav>
+    <section class="py-24 px-6 bg-gradient-to-b from-zinc-950 to-zinc-900">
+        <div class="max-w-md mx-auto">
+            <h2 class="text-2xl font-serif mb-8 text-purple-200">あなたは、誰かに見られることを怖がっていませんか？</h2>
+            <div class="space-y-8 border-l border-purple-500/20 pl-6 text-sm text-zinc-400">
+                <p>LINEを送信する前、何度も読み返して「無難な言葉」に書き換える。</p>
+                <p>SNSの裏垢でさえ、誰かに特定されるのが怖くて本音が書けない。</p>
+                <p>流出した誰かのチャット履歴を見て、明日は我が身だと震える。</p>
+            </div>
+        </div>
+    </section>
 
-                    {/* Hero Section */}
-                    <header className="relative min-h-screen flex flex-col items-center justify-center px-6 text-center pt-16">
-                        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                            <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-purple-900/20 rounded-full blur-3xl animate-pulse"></div>
-                            <div className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-pink-900/10 rounded-full blur-3xl"></div>
-                        </div>
-                        <div className={`transition-all duration-1000 transform ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-                            <div className="mb-6 inline-block p-3 rounded-full bg-zinc-900/50 border border-white/10 backdrop-blur-sm">
-                                <Icon name="Ghost" className="w-8 h-8 text-purple-300" />
-                            </div>
-                            <h1 className="text-4xl md:text-6xl font-serif font-medium leading-tight mb-6">
-                                「いい人」を、<br />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-300">6分間だけ</span>休もう。
-                            </h1>
-                            <p className="text-zinc-400 text-sm leading-relaxed max-w-sm mx-auto mb-10 text-center">
-                                誰にも言えないことは、悪いことじゃない。書き込んで、読み終えて、6分。あなたの秘密は、この世界のどこにも残らない。
-                            </p>
-                            <button className="px-8 py-4 bg-zinc-100 text-zinc-950 rounded-full font-bold shadow-[0_0_20px_rgba(168,85,247,0.3)]">
-                                <span className="flex items-center gap-2 justify-center">秘密の部屋を作る <Icon name="Sparkles" className="w-4 h-4 text-purple-600" /></span>
-                            </button>
-                        </div>
-                        <div className="absolute bottom-8 animate-bounce opacity-30"><Icon name="ChevronDown" className="w-6 h-6" /></div>
-                    </header>
+    <section class="py-24 px-6 bg-zinc-950">
+        <div class="max-w-md mx-auto space-y-6">
+            <h2 class="text-center text-sm font-serif mb-12 tracking-widest text-zinc-500 uppercase">The Sanctuary</h2>
+            <div class="p-6 bg-zinc-900 rounded-xl border border-white/5">
+                <div class="flex justify-between mb-4"><h3 class="font-bold">証拠にならない安心</h3><i data-lucide="hourglass" class="w-5 h-5 text-purple-400"></i></div>
+                <p class="text-xs text-zinc-400">どんなに深い悩みも、衝動的な怒りも、6分後には消滅します。</p>
+            </div>
+            <div class="p-6 bg-zinc-900 rounded-xl border border-white/5">
+                <div class="flex justify-between mb-4"><h3 class="font-bold">繋がりすぎない距離</h3><i data-lucide="x" class="w-5 h-5 text-purple-400"></i></div>
+                <p class="text-xs text-zinc-400">6日経てばルームごと消える。執着も粘着も生まれない密室体験。</p>
+            </div>
+        </div>
+    </section>
 
-                    {/* Empathy Section */}
-                    <section className="py-24 px-6 bg-gradient-to-b from-zinc-950 to-zinc-900">
-                        <div className="max-w-md mx-auto">
-                            <h2 className="text-2xl font-serif mb-8 text-purple-200">あなたは、誰かに見られることを怖がっていませんか？</h2>
-                            <div className="space-y-8 border-l border-purple-500/20 pl-6">
-                                {["LINEを送信する前、何度も読み返して「無難な言葉」に書き換える。", "SNSの裏垢でさえ、誰かに特定されるのが怖くて本音が書けない。", "流出した誰かのチャット履歴を見て、明日は我が身だと震える。"].map((text, i) => (
-                                    <div key={i} className="relative">
-                                        <span className="absolute -left-[29px] top-1 w-1.5 h-1.5 rounded-full bg-purple-500"></span>
-                                        <p className="text-zinc-400 text-sm leading-relaxed">{text}</p>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </section>
+    <footer class="py-20 px-6 text-center border-t border-white/10">
+        <h2 class="text-2xl font-serif mb-6 text-white">暗闇があるから、光が見える。</h2>
+        <button class="w-full py-4 bg-white text-black rounded-full font-bold mb-12">今すぐ秘密の部屋を作る</button>
+        <div class="flex items-center justify-center gap-2 text-zinc-800">
+            <i data-lucide="lock" class="w-3 h-3"></i>
+            <span class="text-[10px]">ENCRYPTED & ANONYMOUS</span>
+        </div>
+        <p class="mt-4 text-[10px] text-zinc-800">© 2026 SiX. All rights reserved.</p>
+    </footer>
 
-                    {/* Features Section */}
-                    <section className="py-24 px-6 bg-zinc-950">
-                        <div className="max-w-md mx-auto space-y-6">
-                            <h2 className="text-center text-xl font-serif mb-12 tracking-widest text-zinc-500 uppercase">The Sanctuary</h2>
-                            {[
-                                { title: "証拠にならない安心", icon: "Hourglass", desc: "どんなに深い悩みも、衝動的な怒りも、6分後には物理的に消滅します。" },
-                                { title: "繋がりすぎない距離", icon: "X", desc: "6日経てばルームごと消える。刹那的な1対1の密室体験。" },
-                                { title: "足跡をつけない", icon: "EyeOff", desc: "登録不要。あなたの名前も、アドレスも、過去も、私たちは知りたくありません。" }
-                            ].map((f, i) => (
-                                <div key={i} className="p-6 bg-zinc-900 rounded-xl border border-white/5">
-                                    <div className="flex justify-between mb-4"><h3 className="font-bold">{f.title}</h3><Icon name={f.icon} className="w-5 h-5 text-purple-400" /></div>
-                                    <p className="text-xs text-zinc-400 leading-relaxed">{f.desc}</p>
-                                </div>
-                            ))}
-                        </div>
-                    </section>
-
-                    {/* Footer */}
-                    <footer className="py-20 px-6 text-center border-t border-white/10">
-                        <h2 className="text-2xl font-serif mb-6">暗闇があるから、光が見える。</h2>
-                        <button className="w-full py-4 bg-white text-black rounded-full font-bold mb-12">今すぐ秘密の部屋を作る</button>
-                        <div className="flex justify-center gap-2 text-zinc-800 mb-4"><Icon name="Lock" className="w-3 h-3" /><span className="text-[10px]">ENCRYPTED & ANONYMOUS</span></div>
-                        <p className="text-[10px] text-zinc-800">© 2026 SiX. All rights reserved.</p>
-                    </footer>
-                </div>
-            );
-        };
-
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<SiXLP />);
+    <script>
+        lucide.createIcons();
     </script>
 </body>
 </html>
